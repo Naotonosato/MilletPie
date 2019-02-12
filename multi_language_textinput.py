@@ -1,12 +1,7 @@
-from ctypes import windll,cdll
 import ctypes
 from kivy.app import App
 from kivy.uix.textinput import TextInput
-from kivy.uix.button import Button
 from kivy.uix.label import Label
-from kivy.uix.recycleview import RecycleView
-from kivy.uix.recycleboxlayout import RecycleBoxLayout
-from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.floatlayout import FloatLayout
 from kivy.resources import resource_add_path
 from kivy.core.text import LabelBase,DEFAULT_FONT
@@ -14,8 +9,6 @@ from kivy.utils import platform
 from kivy.base import EventLoop
 from kivy.properties import StringProperty,ObjectProperty,NumericProperty,ListProperty
 from kivy.lang import Builder
-from kivy.clock import Clock
-from kivy.uix.behaviors import ButtonBehavior
 from kivy.utils import escape_markup
 from functools import partial
 
@@ -32,7 +25,7 @@ if platform == 'win':
     set(DEFAULT_FONT,'YuGothR.ttc')
     print(DEFAULT_FONT)
 
-dll = cdll.LoadLibrary('./ime_operator.dll')
+dll = ctypes.cdll.LoadLibrary('./ime_operator.dll')
 
 dll.getCandidate.restype = ctypes.c_char_p
 dll.getComposition.restype = ctypes.c_char_p
@@ -98,10 +91,8 @@ class TextInputIME(TextInput):
         #data = [{'text':text,'on_release':partial(self.select_candidate,text)} for text in candidates.split()]
         #self.candidate_window.data = data
         
-        raw_text = '\n'.join([f'[ref={i}]' + i + '[/ref]' for i in candidates])
         escaped_text = '\n'.join([f'[ref={escape_markup(i)}]' + escape_markup(i) + '[/ref]' for i in candidates])
 
-        self.candidate_window.raw_text = raw_text
         self.candidate_window.escaped_text = escaped_text
         self.candidate_window.text = escaped_text
 
@@ -168,7 +159,6 @@ class TextInputIME(TextInput):
 
 class CandidateLabel(Label):
 
-    raw_text = StringProperty()
     escaped_text = StringProperty()
     textinput = ObjectProperty()
 
