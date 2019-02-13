@@ -14,7 +14,8 @@ I want to do like this.
 char* msg = "\n\n";
 return msg;
 
-but due to constrains of ctypes I am writing the following program.
+but due to constrains of ctypes I wrote
+the following program.
 (returning (char*)string.c_str())
 */
 
