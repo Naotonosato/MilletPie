@@ -24,15 +24,41 @@ def set(family, *filenames):
 
 
 if platform == 'win':
+
     resource_add_path('c:/Windows/Fonts')
     set(DEFAULT_FONT, 'YuGothR.ttc')
-    print(DEFAULT_FONT)
 
-dll = ctypes.cdll.LoadLibrary('./ime_operator.dll')
+    dll = ctypes.cdll.LoadLibrary('./ime_operator.dll')
 
-dll.getCandidate.restype = ctypes.c_char_p
-dll.getComposition.restype = ctypes.c_char_p
-dll.getEnterdString.restype = ctypes.c_char_p  # POINTER(ctypes.c_char)
+    dll.getCandidate.restype = ctypes.c_char_p
+    dll.getComposition.restype = ctypes.c_char_p
+    dll.getEnterdString.restype = ctypes.c_char_p  # POINTER(ctypes.c_char)
+
+else:
+
+    class Dummy:
+
+        def getCandidate(self, *args):
+
+            return b''
+
+        def getComposition(self, *args):
+
+            return b''
+
+        def getEnterdString(self, *args):
+
+            return b''
+
+        def getIsOpenIME(self, *args):
+
+            return 0
+
+        def getEnteredString(self, *args):
+
+            return b''
+
+    dll = Dummy()
 
 
 class TextInputIME(TextInput):
