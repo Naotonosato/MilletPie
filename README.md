@@ -1,5 +1,5 @@
 # MilletPie
-My English isn't very good and I'm not used to be GitHub. 
+/＊My English isn't very good and I don't have much experience of using github. ＊/
 
 This is only available in Windows.
 this project doesn't support Linux,Mac OS,iOS,Android yet.
