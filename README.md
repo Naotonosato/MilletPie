@@ -1,6 +1,6 @@
 # MilletPie
 /＊My English isn't very good and I don't have much experience of using github. ＊/
-
+/＊this is not safe because this code is written by me that didn't know c++＊/
 This is only supported on Windows.
 this project doesn't support Linux,Mac OS,iOS,Android yet.
 
